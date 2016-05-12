@@ -1,0 +1,5 @@
+package com.finalproject.parkpal.servlet;
+
+public class NewUserServlet {
+
+}

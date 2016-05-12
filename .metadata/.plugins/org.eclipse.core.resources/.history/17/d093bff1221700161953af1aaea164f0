@@ -1,0 +1,18 @@
+package com.finalproject.parkpal.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class ParkingPalController {
+	
+	@RequestMapping("/loginPage")
+	public ModelAndView parkPal(){
+		ModelAndView model = new ModelAndView("loginPage");
+		model.addObject(null, null);
+		
+		return model;
+	}
+}
+

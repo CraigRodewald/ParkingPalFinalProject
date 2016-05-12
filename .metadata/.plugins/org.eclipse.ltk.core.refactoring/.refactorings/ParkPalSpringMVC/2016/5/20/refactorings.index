@@ -1,0 +1,22 @@
+1462894249802	Delete element
+1462895304548	Rename resource 'welcom.jsp'
+1462900808233	Rename resource 'parkpal-servlet.xml'
+1462907208257	Delete element
+1462911909990	Copy package
+1462911947368	Copy package
+1462911962943	Copy package
+1462911973194	Delete element
+1462912008420	Rename package 'com.finalproject.parkpal.dto.copy'
+1462931425544	Move 'jsp' to 'WebContent'
+1462932659156	Move 'views' to 'WebContent'
+1462932677364	Delete element
+1462934275445	Rename package 'com.parkpal.controller'
+1462935023791	Copy file
+1462935213575	Move 'jsp' to 'WEB-INF'
+1462935265409	Delete element
+1462936732164	Delete element
+1462937488503	Rename local variable 'newUser'
+1463062078558	Move 'bootstrap' to 'jsp'
+1463066568147	Move 'bootstrap' to 'WEB-INF'
+1463068081357	Move 'bootstrap' to 'resources'
+1463072376215	Move 'resources' to 'WebContent'

@@ -21,10 +21,10 @@ public class NewMemberDAO {
 			preparedStatement.setString(3, newMember.getEmail());
 			preparedStatement.setString(4, newMember.getPassword());
 			preparedStatement.executeUpdate();
+			System.out.println("New member added");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 }
-
-//Still need to get new member bean from register page
