@@ -28,14 +28,26 @@
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
 	
-	<title>ParkPal Member</title>
+	<title>ParkPal</title>
 </head>
 
 <body>
 	<h1 id = "">
-		<%Member currentUser = (Member)session.getAttribute("currentSessionUser");%>
+		<%
+		Member currentUser = (Member)session.getAttribute("currentSessionUser");
+		if(currentUser == null){
+			
+			
+			out.print("Welcome <strong>guest</strong>");
+			
+		}else {
+		
+		
+		
 
-		Welcome<strong> <%=currentUser.getFirstName() + " " + currentUser.getLastName()%></strong>
+		out.print("Welcome <strong>" + currentUser.getFirstName() + ' ' + currentUser.getLastName() + "</strong>");
+	
+	}%>
 	</h1>
 	<br>
 	  <div id="floating-panel">
@@ -51,21 +63,30 @@
 	
 	<div>
 		<p id="redrawMap">
-			<iframe width="100%" height="600px" src="//www.parkme.com/widget/?&header=false&lat=42.335960&lng=-83.049712&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe>
+			<iframe width="100%" height="800px" src="//www.parkme.com/widget/?&header=false&lat=42.335960&lng=-83.049712&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe>
 			<div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a>
 		</div>
 		</p>
 	</div>
 	<script>
+		var stringLat;
+		var stringLong;
+	</script>
+	
+	<script>
 		window.addEventListener("resize", myFunction);
 		var x = 0;
-		var lat = results[0].geometry.location.lat();
-		var lng = results[0].geometry.location.lng();
-		var firstPart= '<iframe width="100%" height="600px" src="//www.parkme.com/widget/?&header=false&lat=';
+		var lat = stringLat;
+		var lng = stringLong;
+		console.log(stringLat, stringLong);
+		var firstPart= '<iframe width="100%" height="700px" src="//www.parkme.com/widget/?&header=false&lat=';
 		var middlePart= '&lng=';
 		var lastPart='&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe><div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a></div>';
 		
 		function myFunction() {
+			var lat = stringLat;
+			var lng = stringLong;
+			console.log(stringLat, stringLong);
     		document.getElementById("redrawMap").innerHTML = firstPart.concat(lat,middlePart,lng,lastPart);
 		}
 	</script>
@@ -102,10 +123,9 @@
           var lat = results[0].geometry.location.lat();
           var lon = results[0].geometry.location.lng();
           console.log("Longitude",lon,"latitude", lat);
-          var lonstring = lon.toString();
-          var latstring = lat.toString();
-          var info = lonstring.concat(latstring);
-          console.log(info);
+          stringLong = lon.toString();
+          stringLat = lat.toString();
+          myFunction();
         	}
          else {
           	alert('Geocode was not successful for the following reason: ' + status);

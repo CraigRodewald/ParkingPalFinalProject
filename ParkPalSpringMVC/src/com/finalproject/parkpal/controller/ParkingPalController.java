@@ -42,6 +42,18 @@ public class ParkingPalController {
 
 	@RequestMapping("/userLogged")
 	public ModelAndView userLogged() {
+		try {
+			Member member = new Member();
+			if (member.getFirstName() == null) {
+				member.setFirstName("ParkPal");
+				member.setLastName("Guest");
+				member.setEmail(" ");
+				member.setPassword(" ");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		ModelAndView model = new ModelAndView("userLogged");
 
 		return model;

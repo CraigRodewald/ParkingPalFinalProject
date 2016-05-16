@@ -27,6 +27,7 @@ body{
 	color: #333333;
 	font-size: 14px;
 	background: #fff;
+	background-image: url("resources/images/bx-slider/bg1.jpg"); 
 	overflow-x: hidden !important;
 	overflow-y: auto !important;
 	width: 100%;
