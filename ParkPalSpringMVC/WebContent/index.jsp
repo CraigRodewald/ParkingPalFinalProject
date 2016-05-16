@@ -3,13 +3,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome -->
+    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="resources/css/animate.css">
+    <!-- Bxslider CSS -->
+    <link rel="stylesheet" href="resources/css/bxslider.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="resources/css/style.css">
+    <!-- Responsive styles-->
+    <link rel="stylesheet" href="resources/css/responsive.css">
+    
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+
+<title>ParkPal</title>
 </head>
+
 <body>
-	<br>
-	<div style="text-align:center">
-		<h2>Hey You..!! This is your first Spring MVC page...<br><br></h2>
-		<h3><a href="welcome">Click here to see Welcome Message... </a>(to check Spring MVC Controller.. @RequestMapping("/welcome"))</h3>
+  <div >
+    <div >
+      <div class="darkBackdrop"><p>ParkPal</p>
+      <button onclick="window.location.href='loginPage'">Log in</button>
+      <button onclick="window.location.href='register'">Sign up</button>
+      </div>
+        <center>
+          <h1>ParkPal</h1>
+          <p>Find the best places to park in Detroit.</p>
+        </center>
+
+        <!-- search form 6 -->
+      <div class="button_box2">
+        <center>
+            <form class="form-wrapper-2 cf">
+              <input type="text" placeholder="Enter location here..." required>
+            <button type="submit">Search</button>
+          </form>
+        </center>
+      </div>
+      </div>
+    </div>
+    <!-- <img src="resources/images/bx-slider/bg1.jpg" /> -->
+        
 </body>
+
 </html>

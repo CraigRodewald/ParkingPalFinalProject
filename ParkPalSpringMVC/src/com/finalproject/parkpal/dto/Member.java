@@ -6,7 +6,6 @@ public class Member {
 	private String user_password;
 	private String firstName;
 	private String lastName;
-	public boolean valid;
 
 	public String getFirstName() {
 		return firstName;
@@ -40,11 +39,4 @@ public class Member {
 		email = newEmail;
 	}
 
-	public boolean isValid() {
-		return valid;
-	}
-
-	public void setValid(boolean newValid) {
-		valid = newValid;
-	}
 }

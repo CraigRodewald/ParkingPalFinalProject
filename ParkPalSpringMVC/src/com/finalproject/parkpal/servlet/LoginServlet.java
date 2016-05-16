@@ -25,9 +25,9 @@ public class LoginServlet extends HttpServlet {
 			user.setEmail(request.getParameter("email"));
 			user.setPassword(request.getParameter("password"));
 
-			user = MemberDAO.login(user);
+			boolean isValidUser = MemberDAO.checkIfMemberExists(user);
 
-			if (user.isValid()) {
+			if (isValidUser) {
 
 				HttpSession session = request.getSession(true);
 				session.setAttribute("currentSessionUser", user);

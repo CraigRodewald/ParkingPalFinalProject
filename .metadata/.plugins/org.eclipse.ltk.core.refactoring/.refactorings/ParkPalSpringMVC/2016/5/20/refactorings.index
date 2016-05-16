@@ -20,3 +20,13 @@
 1463066568147	Move 'bootstrap' to 'WEB-INF'
 1463068081357	Move 'bootstrap' to 'resources'
 1463072376215	Move 'resources' to 'WebContent'
+1463166382584	Delete element
+1463249783196	Delete element
+1463270162098	Move 'assets' to 'resources'
+1463270164427	Move 'css' to 'resources'
+1463270166540	Move 'fonts' to 'resources'
+1463270169294	Move 'images' to 'resources'
+1463270171848	Move 'js' to 'resources'
+1463270177557	Delete element
+1463270210236	Delete element
+1463270220186	Delete element

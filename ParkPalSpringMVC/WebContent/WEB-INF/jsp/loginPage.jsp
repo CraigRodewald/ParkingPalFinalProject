@@ -6,17 +6,17 @@
 
 <html>
 <head>
-<link href="/reosurces/bootstrap/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet">
   <!-- FontAwesome -->
-    <link rel="stylesheet" href="/reosurces/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
     <!-- Animation -->
-    <link rel="stylesheet" href="/reosurces/bootstrap/css/animate.css">
+    <link rel="stylesheet" href="resources/css/animate.css">
     <!-- Bxslider CSS -->
-    <link rel="stylesheet" href="/reosurces/bootstrap/css/bxslider.css">
+    <link rel="stylesheet" href="resources/css/bxslider.css">
     <!-- Template styles-->
-    <link rel="stylesheet" href="/reosurces/bootstrap/css/style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
     <!-- Responsive styles-->
-    <link rel="stylesheet" href="/reosurces/bootstrap/css/responsive.css">
+    <link rel="stylesheet" href="resources/css/responsive.css">
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
 <title>Login Page</title>
@@ -34,11 +34,6 @@
 		<br>
 		<br>
 		<input type="submit" value="login">
-		
-		  <form class="subscribe-form">
-                                <input type="text" class="form-control wow bounceInLeft" placeholder="your email">
-                                <button class="btn btn-primary submit-input wow bounceInRight">Subscribe now</button>
-                            </form>
 
 	</form>
 	<br> If you are a new user, please

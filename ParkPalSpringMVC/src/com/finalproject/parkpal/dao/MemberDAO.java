@@ -10,22 +10,22 @@ public class MemberDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 
-	public static Member login(Member bean) {
+	public static boolean checkIfMemberExists(Member member) {
 
 		// preparing some objects for connection
 		Statement stmt = null;
 
-		String email = bean.getEmail();
-		String password = bean.getPassword();
+		//String email = member.getEmail();
+		//String password = member.getPassword();
 
-		String searchQuery = "select * from member where email='" + email + "' AND user_password='" + password
+		String searchQuery = "select * from member where email='" + member.getEmail() + "' AND user_password='" + member.getPassword()
 				+ "'";
 		
 		// "System.out.println" prints in the console; Normally used to
 		// trace the process
-		System.out.println("Your user name is " + email);
-		System.out.println("Your password is " + password);
-		System.out.println("Query: " + searchQuery);
+		//System.out.println("Your user name is " + email);
+		//System.out.println("Your password is " + password);
+		//System.out.println("Query: " + searchQuery);
 
 		try {
 			// connect to DB
@@ -38,18 +38,21 @@ public class MemberDAO {
 			// false
 			if (!more) {
 				System.out.println("Sorry, you are not a registered user! Please sign up first");
-				bean.setValid(false);
+				return false;
 			}
 
 			// if user exists set the isValid variable to true
 			else if (more) {
-				String firstName = rs.getString("first_name");
-				String lastName = rs.getString("last_name");
+				//String firstName = rs.getString("first_name");
+				//String lastName = rs.getString("last_name");
 
-				System.out.println("Welcome " + firstName);
-				bean.setFirstName(firstName);
-				bean.setLastName(lastName);
-				bean.setValid(true);
+				System.out.println("Welcome " + (rs.getString("first_name")));
+				//member.setFirstName(firstName);
+				//member.setLastName(lastName);
+				
+				member.setFirstName(rs.getString("first_name"));
+				member.setLastName(rs.getString("last_name"));
+				
 			}
 		}
 
@@ -84,7 +87,7 @@ public class MemberDAO {
 			}
 		}
 
-		return bean;
+		return true;
 
 	}
 }
