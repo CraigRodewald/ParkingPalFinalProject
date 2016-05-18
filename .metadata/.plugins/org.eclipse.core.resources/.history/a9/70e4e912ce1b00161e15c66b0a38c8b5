@@ -1,0 +1,107 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCuK0lnSgOTVwMuBHXI22JfpSVfopATzqs"></script>
+
+<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome -->
+    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="resources/css/animate.css">
+    <!-- Bxslider CSS -->
+    <link rel="stylesheet" href="resources/css/bxslider.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="resources/css/style.css">
+    <!-- Responsive styles-->
+    <link rel="stylesheet" href="resources/css/responsive.css">
+    
+
+<title>ParkPal</title>
+</head>
+
+<body>
+  <div >
+    <div >
+      <div class="darkBackdrop"><p>ParkPal</p>
+      <button onclick="window.location.href='loginPage'">Log in</button>
+      <button onclick="window.location.href='register'">Sign up</button>
+      </div>
+        <center>
+          <h1>ParkPal</h1>
+          <p>Find the best places to park in Detroit.</p>
+        </center>
+
+        <!-- search form 6 -->
+      <div class="button_box2">
+        <center>
+            
+             <input id="address" value="" placeholder="Enter a City"> <input
+          id="submit" onclick="initMap()" type="button"
+          value="Submit">
+          
+          
+            			<!-- Use This Button -->
+            <!-- <input id="address" value="" placeholder="Enter a City"> <input
+          id="submit" onclick="window.location.href='userLogged'" type="button"
+          value="Submit"> -->
+          <!-- </form> -->
+        </center>
+      </div>
+      </div>
+      <div id="map"></div>
+    </div>
+    	<!-- <img src="resources/images/bx-slider/NewMapBoxBackdrop.jpg" /> -->
+        <script>
+		var stringLat;
+		var stringLong;
+	</script>
+	
+	<script>
+		function initMap() {
+	    	var map = new google.maps.Map(document.getElementById('map'), {
+	      	zoom: 4,
+	      	center: {lat: 39.83, lng: -98.58}
+	    	});
+	    
+	    	var geocoder = new google.maps.Geocoder();
+	    
+	   		document.getElementById('submit').addEventListener('click', function() {
+	      	geocodeAddress(geocoder, map);
+	    	});
+	   	
+	  	}
+  
+    	function geocodeAddress(geocoder, resultsMap) {
+     		var address = document.getElementById('address').value;
+     	
+    	 	geocoder.geocode({'address': address}, function(results, status) {
+
+        	if (status === google.maps.GeocoderStatus.OK) {
+          		resultsMap.setCenter(results[0].geometry.location);
+          		var marker = new google.maps.Marker({
+
+            	map: resultsMap,
+            	position: results[0].geometry.location
+          	});
+
+
+          var lat = results[0].geometry.location.lat();
+          var lon = results[0].geometry.location.lng();
+          console.log("Longitude",lon,"latitude", lat);
+          stringLong = lon.toString();
+          stringLat = lat.toString();
+        	}
+         else {
+          	alert('Geocode was not successful for the following reason: ' + status);
+        	}
+        	
+      		});
+		}
+	</script>
+</body>
+
+</html>

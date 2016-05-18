@@ -93,5 +93,11 @@ public class ParkingPalController {
 
 		return model;
 	}
+	
+	@RequestMapping("/home")
+	public ModelAndView homePage() {
+		ModelAndView model = new ModelAndView("home");
 
+		return model;
+	}
 }

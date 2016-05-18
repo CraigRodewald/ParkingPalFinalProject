@@ -3,74 +3,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet">
-  <!-- FontAwesome -->
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
-    <!-- Animation -->
-    <link rel="stylesheet" href="resources/css/animate.css">
-    <!-- Bxslider CSS -->
-    <link rel="stylesheet" href="resources/css/bxslider.css">
-    <!-- Template styles-->
-    <link rel="stylesheet" href="resources/css/style.css">
-    <!-- Responsive styles-->
-    <link rel="stylesheet" href="resources/css/responsive.css">
+
+	<!-- Style sheets -->
+<!-- <link rel="stylesheet" href="resources/css/style.css"> -->
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/images/">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCuK0lnSgOTVwMuBHXI22JfpSVfopATzqs"></script>
 
 <title>ParkPal</title>
 </head>
 
 <body>
-  <div >
-    <div >
-      <div class="darkBackdrop"><p>ParkPal</p>
+<div>
+<!-- <nav class="navbar navbar-inverse">
+  <div class="container">
+    <p>ParkPal</p>
       <button onclick="window.location.href='loginPage'">Log in</button>
       <button onclick="window.location.href='register'">Sign up</button>
-      </div>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.jsp">ParkPal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="">Home</a></li>
+      <li class="active"><a href="">About Us</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="loginPage"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+  <div>
+    <div>
+      <!-- <div class="darkBackdrop"><p>ParkPal</p>
+      <button onclick="window.location.href='loginPage'">Log in</button>
+      <button onclick="window.location.href='register'">Sign up</button>
+      </div> -->
         <center>
-          <h1>ParkPal</h1>
-          <p>Find the best places to park in Detroit.</p>
+        
+        <div></div>
+          <h1>Park<strong>Pal</strong></h1>
+          <h3>Find the best places to park in Detroit.</h3>
         </center>
 
         <!-- search form 6 -->
       <div class="button_box2">
         <center>
-            <!-- <form class="form-wrapper-2 cf">
-              <input id="address" type="text" placeholder="Enter location here..." required>
-            <button type="submit">Search</button> -->
             
-            <input id="address" value="" placeholder="Enter a City"> <input
-          id="submit" onclick="window.location.href='userLogged'" type="button"
+             <input id="address" class="subscribe-form form-control" value="" placeholder="Enter a City..."> <input
+          id="submit" onclick="initMap()" type="button" class="btn btn-primary"
           value="Submit">
+          
+          
+          
+          
+            			<!-- Use This Button -->
+            <!-- <input id="address" value="" placeholder="Enter a City"> <input
+          id="submit" onclick="window.location.href='userLogged'" type="button"
+          value="Submit"> -->
           <!-- </form> -->
         </center>
       </div>
       </div>
+      <div id="map"></div>
     </div>
-    	<!-- <img src="resources/images/bx-slider/NewMapBoxBackdrop.jpg" /> -->
         <script>
 		var stringLat;
 		var stringLong;
-	</script>
-	
-	<script>
-		window.addEventListener("resize", myFunction);
-		var x = 0;
-		var lat = stringLat;
-		var lng = stringLong;
-		console.log(stringLat, stringLong);
-		var firstPart= '<iframe width="100%" height="600px" src="//www.parkme.com/widget/?&header=false&lat=';
-		var middlePart= '&lng=';
-		var lastPart='&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe><div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a></div>';
-		
-		function myFunction() {
-			var lat = stringLat;
-			var lng = stringLong;
-			console.log(stringLat, stringLong);
-    		document.getElementById("redrawMap").innerHTML = firstPart.concat(lat,middlePart,lng,lastPart);
-		}
 	</script>
 	
 	<script>
@@ -109,9 +120,11 @@
           stringLat = lat.toString();
         	}
          else {
-          	alert('Geocode was not successful for the following reason: ' + status);
+        	 stringLat = 42.335960;
+     		 stringLong= -83.049712;
         	}
-        	
+        	var urllocation = "userLogged?stringLat="+stringLat+"&stringLong="+stringLong;
+			window.location.href=urllocation;
       		});
 		}
 	</script>

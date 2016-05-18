@@ -5,8 +5,8 @@
 <fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
-<fullyQualifiedTypeName name="com.finalproject.parkpal.dto.Member"/>
 <fullyQualifiedTypeName name="com.finalproject.parkpal.dao.NewMemberDAO"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="com.finalproject.parkpal.dto.Member"/>
 </qualifiedTypeNameHistroy>

@@ -7,24 +7,14 @@
 <html>
 
 <head>
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCuK0lnSgOTVwMuBHXI22JfpSVfopATzqs"></script>
-	
-	<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- FontAwesome -->
-	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
-	
-	<!-- Animation -->
-	<link rel="stylesheet" href="resources/css/animate.css">
-	
-	<!-- Bxslider CSS -->
-	<link rel="stylesheet" href="resources/css/bxslider.css">
-	
-	<!-- Template styles-->
-	<link rel="stylesheet" href="resources/css/style.css">
-	
-	<!-- Responsive styles-->
-	<link rel="stylesheet" href="resources/css/responsive.css">
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCuK0lnSgOTVwMuBHXI22JfpSVfopATzqs"></script>
+
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
 	
@@ -32,53 +22,112 @@
 </head>
 
 <body>
-	<h1 id = "">
+<script>
+	var stringLat;
+	var stringLong;
+	var firstPart= '<iframe width="100%" height="700px" src="//www.parkme.com/widget/?&header=false&lat=';
+	var middlePart= '&lng=';
+	var lastPart='&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe><div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a></div>';
+	
+</script>
+
+<script>
+
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+      var locationList = [];
+  		locationList.push(pair[1]);
+  } 
+  console.log(query_string)
+  if(query_string != null){
+	stringLat = query_string["stringLat"];
+	stringLong= query_string["stringLong"];
+  }
+  else{
+	  stringLat = 42.335960;
+		stringLong= -83.049712;
+  }
+  window.addEventListener("load", myFunction);
+  function myFunction() {
+		var lat = stringLat;
+		var lng = stringLong;
+		//console.log(stringLat, stringLong);
+		document.getElementById("redrawMap").innerHTML = firstPart.concat(lat,middlePart,lng,lastPart);
+	}
+  return query_string;
+}();
+</script>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.jsp">ParkPal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="">Map</a></li>
+      <li class="active"><a href="">About Us</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="loginPage"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+	<center><h1 id = "">
 		<%
 		Member currentUser = (Member)session.getAttribute("currentSessionUser");
 		if(currentUser == null){
 			
-			
 			out.print("Welcome <strong>guest</strong>");
 			
 		}else {
-		
-		
-		
 
 		out.print("Welcome <strong>" + currentUser.getFirstName() + ' ' + currentUser.getLastName() + "</strong>");
 	
 	}%>
-	</h1>
+	</h1></center>
 	<br>
 	  <div id="floating-panel">
 
-      <input id="address" value="" placeholder="Enter a City"> <input
+      <input id="address" class="subscribe-form form-control" value="" placeholder="Enter a City"> <input
           id="submit" onclick="initMap()" type="button"
-          value="Submit">
+          value="Submit" class="btn btn-primary">
   </div>
+  
   <div id="map"></div>
 	<br>
-	<!-- <iframe width='100%' height='500px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/parkingproject.04393gl3/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoicGFya2luZ3Byb2plY3QiLCJhIjoiY2lvM2JibzZlMDA2aHZha2pqbXIwZ3o1YyJ9.yeAYc0MgmNQyeboOzEbDXg'></iframe> --> 
-	<!-- <center><div id="googleMap" style="width:500px;height:380px;"></div></center> -->
 	
 	<div>
 		<p id="redrawMap">
-			<iframe width="100%" height="800px" src="//www.parkme.com/widget/?&header=false&lat=42.335960&lng=-83.049712&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe>
-			<div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a>
+			<!-- <iframe width="100%" height="700px" src="//www.parkme.com/widget/?&header=false&lat=42.335960&lng=-83.049712&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe>
+			<div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a> -->
 		</div>
-		</p>
 	</div>
-	<script>
-		var stringLat;
-		var stringLong;
-	</script>
 	
 	<script>
 		window.addEventListener("resize", myFunction);
 		var x = 0;
 		var lat = stringLat;
 		var lng = stringLong;
-		console.log(stringLat, stringLong);
+		//console.log(stringLat, stringLong);
 		var firstPart= '<iframe width="100%" height="700px" src="//www.parkme.com/widget/?&header=false&lat=';
 		var middlePart= '&lng=';
 		var lastPart='&zoom=16&duration=120" frameborder="0" style="border: 1px solid silver;" allowfullscreen></iframe><div style="width: 850px; font-size: 8pt; text-align:right; color:grey;"> Powered by <a style="color:grey !important; text-decoration:none;" href="http://www.parkme.com/">ParkMe</a></div>';
@@ -86,7 +135,7 @@
 		function myFunction() {
 			var lat = stringLat;
 			var lng = stringLong;
-			console.log(stringLat, stringLong);
+			//console.log(stringLat, stringLong);
     		document.getElementById("redrawMap").innerHTML = firstPart.concat(lat,middlePart,lng,lastPart);
 		}
 	</script>
@@ -128,7 +177,7 @@
           myFunction();
         	}
          else {
-          	alert('Geocode was not successful for the following reason: ' + status);
+          	alert('Geocode was not successful for the following reason: Enter a city or address');
         	}
         	
       		});

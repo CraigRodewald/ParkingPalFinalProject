@@ -1,0 +1,180 @@
+<%@ page language="java" contentType="text/html; charset=windows-1256"
+	pageEncoding="windows-1256"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCuK0lnSgOTVwMuBHXI22JfpSVfopATzqs"></script>
+
+<meta http-equiv="Content-Type"
+	content="text/html; charset=windows-1256">
+<title>Login Page</title>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.jsp">ParkPal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="">Login</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="loginPage"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+  <center>
+	<h2>Member Login Page</h2>
+	<form action="LoginServlet">
+
+		<input type="text" id="email" name="email" placeholder="  Enter email here..."/>
+		<div id="status"></div>
+		<br>
+		<br>
+		<input type="text" name="password" placeholder="  Enter password here..." /> 
+		<br>
+		<br>
+		<input type="submit" value="login" class="btn btn-primary">
+
+	</form>
+	<script>
+	$('#email').mailgun_validator({
+       api_key: 'key-042bd77569c97490bd3c981336fc3d0f',
+       in_progress: in_progress_callback, // called when request is made to validator
+       success: success_callback,         // called when validator has returned
+       error: validation_error,           // called when an error reaching the validator has occured
+   });
+	</script>
+	<br> If you are a new user, please
+	<a href="/ParkPalSpringMVC/register">register</a>.
+  </center>
+  
+<script>
+  (function( $ ) {
+    $.fn.mailgun_validator = function(options) {
+        return this.each(function() {
+            var thisElement = $(this);
+            thisElement.focusout(function(e) {
+                //Trim string and autocorrect whitespace issues
+                var elementValue = thisElement.val();
+                elementValue = $.trim(elementValue);
+                thisElement.val(elementValue);
+
+                //Attach event to options
+                options.e = e;
+
+                run_validator(elementValue, options, thisElement);
+            });
+        });
+    };
+
+    function run_validator(address_text, options, element) {
+        //Abort existing AJAX Request to prevent flooding
+        if(element.mailgunRequest) {
+            element.mailgunRequest.abort();
+            element.mailgunRequest = null;
+        }
+
+        // don't run validator without input
+        if (!address_text) {
+            return;
+        }
+
+        // validator is in progress
+        if (options && options.in_progress) {
+            options.in_progress(options.e);
+        }
+
+        // don't run dupicate calls
+        if (element.mailgunLastSuccessReturn) {
+            if (address_text == element.mailgunLastSuccessReturn.address) {
+                if (options && options.success) {
+                    options.success(element.mailgunLastSuccessReturn, options.e);
+                }
+                return;
+            }
+        }
+
+        // length and @ syntax check
+        var error_message = false;
+        if (address_text.length > 512)
+            error_message = 'Email address exceeds maxiumum allowable length of 512.';
+        else if (1 !== address_text.split('@').length-1)
+            error_message = 'Email address must contain only one @.';
+
+        if (error_message) {
+            if (options && options.error) {
+                options.error(error_message, options.e);
+            }
+            else {
+                if (console) console.log(error_message);
+            }
+            return;
+        }
+
+        // require api key
+        if (options && options.api_key == undefined) {
+            if (console) console.log('Please pass in api_key to mailgun_validator.');
+        }
+
+        // timeout incase of some kind of internal server error
+        var timeoutID = setTimeout(function() {
+            error_message = 'Error occurred, unable to validate address.';
+            if (!success) {
+                //Abort existing AJAX Request for a true timeout
+                if(element.mailgunRequest) {
+                    element.mailgunRequest.abort();
+                    element.mailgunRequest = null;
+                }
+
+                if (options && options.error) {
+                    options.error(error_message, options.e);
+                }
+                else {
+                    if (console) console.log(error_message);
+                }
+            }
+        }, 30000); //30 seconds
+
+        // make ajax call to get validation results
+        element.mailgunRequest = $.ajax({
+            type: "GET",
+            url: 'https://api.mailgun.net/v2/address/validate?callback=?',
+            data: { address: address_text, api_key: options.api_key },
+            dataType: "jsonp",
+            crossDomain: true,
+            success: function(data, status_text) {
+                clearTimeout(timeoutID);
+
+                element.mailgunLastSuccessReturn = data;
+                if (options && options.success) {
+                    options.success(data, options.e);
+                }
+            },
+            error: function(request, status_text, error) {
+                clearTimeout(timeoutID);
+                error_message = 'Error occurred, unable to validate address.';
+
+                if (options && options.error) {
+                    options.error(error_message, options.e);
+                }
+                else {
+                    if (console) console.log(error_message);
+                }
+            }
+        });
+    }
+})( jQuery );
+  </script>
+</body>
+</html>
